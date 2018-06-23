@@ -5,5 +5,5 @@
 **Hibernate:** O Hibernate é um framework para o mapeamento objeto-relacional escrito na linguagem Java, facilita o mapeamento dos atributos entre uma base tradicional de dados relacionais e o modelo objeto de uma aplicação, mediante o uso de arquivos (XML) ou anotações Java.
 
 <p align="center">
-<img src="https://raw.githubusercontent.com/DoisLucas/CRUD-HibernateJPA/master/images/diagram.png" width="60%" height="60%"/>
+<img src="https://raw.githubusercontent.com/DoisLucas/CRUD-HibernateJPA/master/images/diagram-jpa.png" width="80%" height="80%"/>
 </p>
