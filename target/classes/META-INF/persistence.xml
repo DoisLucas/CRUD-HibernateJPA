@@ -6,15 +6,16 @@
 
     <persistence-unit name="configBD">
 
-        <!-- provedor/implementacao do JPA -->
+        <!-- Provedor/Implementação do JPA -->
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
 
-        <!-- entidade mapeada -->
+        <!-- Entidades que serão mapeada -->
         <class>Carro</class>
         <class>Pessoa</class>
+        <class>Venda</class>
 
         <properties>
-            <!-- dados da conexao -->
+            <!-- Dados da conexção -->
             <property name="javax.persistence.jdbc.driver"
                       value="org.postgresql.Driver" />
             <property name="javax.persistence.jdbc.url"
@@ -22,15 +23,15 @@
             <property name="javax.persistence.jdbc.user"
                       value="postgres" />
             <property name="javax.persistence.jdbc.password"
-                      value="*********" />
+                      value="fabercastell1" />
 
-            <!--  propriedades do hibernate -->
+            <!--  Propriedades do hibernate -->
             <property name="hibernate.dialect"
                       value="org.hibernate.dialect.PostgreSQL95Dialect" />
             <property name="hibernate.show_sql" value="false" />
             <property name="hibernate.format_sql" value="false" />
 
-            <!--  atualiza o banco, gera as tabelas se for preciso -->
+            <!--  Cria a tabela do banco automaticamente e faz as mudanças quando tem alterações -->
             <property name="hibernate.hbm2ddl.auto" value="update" />
 
         </properties>

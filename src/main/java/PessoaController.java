@@ -5,6 +5,7 @@ import java.util.List;
 
 public class PessoaController {
 
+
     private EntityManagerFactory emf = Persistence.createEntityManagerFactory("configBD");
     private EntityManager em;
 
@@ -49,8 +50,11 @@ public class PessoaController {
         return lista;
     }
 
-    public void close() {
-        emf.close();
+    public List<Venda> mostrar_meus_carros(int cpf){
+        List<Venda> lista = em
+                .createQuery("SELECT v FROM Venda v WHERE v.p.cpf = :param_cpf").setParameter("param_cpf", cpf)
+                .getResultList();
+        return lista;
     }
 
 }

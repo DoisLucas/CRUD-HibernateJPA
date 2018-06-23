@@ -2,6 +2,11 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "tab_carro")
+
+@NamedQueries({
+        @NamedQuery(name = "Carro.maiorIgualAno", query = "SELECT c from Carro c WHERE c.ano >= :param_ano")
+})
+
 public class Carro {
 
     @Id

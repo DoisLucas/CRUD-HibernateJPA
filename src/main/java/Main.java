@@ -3,7 +3,7 @@ import java.util.logging.Level;
 
 public class Main {
 
-    public static void main(String[] args){
+    public static void main(String[] args) {
         java.util.logging.Logger.getLogger("org.hibernate").setLevel(Level.OFF);
         Main m = new Main();
         m.menu();
@@ -26,7 +26,8 @@ public class Main {
         System.out.println("9) Realizar Venda");
         System.out.println("10) Mostar Vendas");
         System.out.println("11) Listar Carro de Pessoa");
-        System.out.println("12) Sair");
+        System.out.println("12) Listar Carro com ano igual ou superior: ");
+        System.out.println("13) Sair");
         System.out.print("Opção: ");
         int op = getScanner().nextInt();
 
@@ -49,12 +50,14 @@ public class Main {
             case 8:
                 alterar_pessoa();
             case 9:
-                //realizar_venda();
+                realizar_venda();
             case 10:
-                //mostrar_vendas();
+                mostrar_vendas();
             case 11:
-                //listar_carro_pessoa();
+                listar_carro_pessoa();
             case 12:
+                mostrar_carro_ano();
+            case 13:
                 System.exit(0);
             default:
                 System.out.println("Digite uma opção valida!");
@@ -76,6 +79,7 @@ public class Main {
         int potencia = getScanner().nextInt();
         System.out.print("Digite o valor do carro: ");
         float valor = getScanner().nextFloat();
+        System.out.print("\n");
 
         Carro c = new Carro(chassi, nome, cor, ano, potencia, valor);
 
@@ -89,28 +93,42 @@ public class Main {
 
         CarroController cc = new CarroController();
 
-        System.out.println("\t\n--- Todos os Carros ---\n");
+        if (cc.getAll().size() == 0) {
+            System.out.println("\nNão possuimos nenhum carro na base de dados para listar!\n");
+            menu();
+        } else {
 
-        for (Carro c : cc.getAll()) {
-            System.out.println("Numero do Chassi: " + c.getNumero_chassi());
-            System.out.println("Nome: " + c.getNome());
-            System.out.println("Cor: " + c.getCor());
-            System.out.println("Ano: " + c.getAno());
-            System.out.println("Potência (CV): " + c.getPotencia_cv());
-            System.out.println("Valor do carro: " + c.getValor() + "\n");
+            System.out.println("\t\n--- Todos os Carros ---\n");
+
+            for (Carro c : cc.getAll()) {
+                System.out.println("Numero do Chassi: " + c.getNumero_chassi());
+                System.out.println("Nome: " + c.getNome());
+                System.out.println("Cor: " + c.getCor());
+                System.out.println("Ano: " + c.getAno());
+                System.out.println("Potência (CV): " + c.getPotencia_cv());
+                System.out.println("Valor do carro: " + c.getValor() + "\n");
+            }
+            menu();
+
         }
-        menu();
     }
 
     public void excluir_carro() {
 
         CarroController cc = new CarroController();
 
-        System.out.print("\nDigite o número do chassi do carro para excluir: ");
-        int numero_chassi = getScanner().nextInt();
+        if (cc.getAll().size() == 0) {
+            System.out.println("\nNão possuimos nenhum carro na base de dados para realizar a exclusão!\n");
+            menu();
+        } else {
 
-        cc.remover(cc.obter(numero_chassi));
-        menu();
+            System.out.print("\nDigite o número do chassi do carro para excluir: ");
+            int numero_chassi = getScanner().nextInt();
+            System.out.print("\n");
+
+            cc.remover(cc.obter(numero_chassi));
+            menu();
+        }
 
     }
 
@@ -118,37 +136,42 @@ public class Main {
 
         CarroController cc = new CarroController();
 
-        System.out.print("\nDigite o número do chassi do carro para alterar: ");
-        int numero_chassi = getScanner().nextInt();
+        if (cc.getAll().size() == 0) {
+            System.out.println("\nNão possuimos nenhum carro na base de dados para realizar a alteração!\n");
+            menu();
+        } else {
+            System.out.print("\nDigite o número do chassi do carro para alterar: ");
+            int numero_chassi = getScanner().nextInt();
 
-        Carro c = cc.obter(numero_chassi);
+            Carro c = cc.obter(numero_chassi);
 
-        System.out.println("\nAlterando Informações do Carro: \n");
-        System.out.println("Numero do Chassi: " + c.getNumero_chassi());
-        System.out.println("Nome: " + c.getNome());
-        System.out.println("Cor: " + c.getCor());
-        System.out.println("Ano: " + c.getAno());
-        System.out.println("Potência (CV): " + c.getPotencia_cv());
-        System.out.println("Valor do carro: " + c.getValor() + "\n");
+            System.out.println("\nAlterando Informações do Carro: \n");
+            System.out.println("Numero do Chassi: " + c.getNumero_chassi());
+            System.out.println("Nome: " + c.getNome());
+            System.out.println("Cor: " + c.getCor());
+            System.out.println("Ano: " + c.getAno());
+            System.out.println("Potência (CV): " + c.getPotencia_cv());
+            System.out.println("Valor do carro: " + c.getValor() + "\n");
 
-        System.out.println("Digite as novas informações: \n");
+            System.out.println("Digite as novas informações: \n");
 
-        System.out.print("Nome: ");
-        c.setNome(getScanner().next());
+            System.out.print("Nome: ");
+            c.setNome(getScanner().next());
 
-        System.out.print("Cor: ");
-        c.setCor(getScanner().next());
+            System.out.print("Cor: ");
+            c.setCor(getScanner().next());
 
-        System.out.print("Ano: ");
-        c.setAno(getScanner().nextInt());
+            System.out.print("Ano: ");
+            c.setAno(getScanner().nextInt());
 
-        System.out.print("Potencia (CV): ");
-        c.setPotencia_cv(getScanner().nextInt());
+            System.out.print("Potencia (CV): ");
+            c.setPotencia_cv(getScanner().nextInt());
 
-        System.out.print("Valor do carro: ");
-        c.setValor(getScanner().nextDouble());
-        cc.atualizar(c);
-        menu();
+            System.out.print("Valor do carro: ");
+            c.setValor(getScanner().nextDouble());
+            cc.atualizar(c);
+            menu();
+        }
     }
 
     public void add_pessoa() {
@@ -161,12 +184,12 @@ public class Main {
         int rg = getScanner().nextInt();
         System.out.print("Digite a idade da Pessoa: ");
         int idade = getScanner().nextInt();
+        System.out.print("\n");
 
         Pessoa p = new Pessoa(cpf, rg, idade, nome);
 
         PessoaController pc = new PessoaController();
         pc.criar(p);
-
         menu();
     }
 
@@ -174,54 +197,170 @@ public class Main {
 
         PessoaController pc = new PessoaController();
 
-        System.out.println("\t\n--- Todas as Pessoas ---\n");
+        if (pc.getAll().size() == 0) {
+            System.out.println("\nNão possuimos nenhum cliente na base de dados para listar!\n");
+            menu();
+        } else {
 
-        for (Pessoa p : pc.getAll()) {
-            System.out.println("Nome: " + p.getNome());
-            System.out.println("CPF: " + p.getCpf());
-            System.out.println("RG: " + p.getRg());
-            System.out.println("Idade: " + p.getIdade() + "\n");
+            System.out.println("\t\n--- Todas as Pessoas ---\n");
+
+            for (Pessoa p : pc.getAll()) {
+                System.out.println("Nome: " + p.getNome());
+                System.out.println("CPF: " + p.getCpf());
+                System.out.println("RG: " + p.getRg());
+                System.out.println("Idade: " + p.getIdade() + "\n");
+            }
+            menu();
         }
-        menu();
     }
 
     public void excluir_pessoa() {
 
         PessoaController pc = new PessoaController();
-        System.out.print("\nDigite o CPF da pessoa para remove-lá: ");
 
-        int cpf = getScanner().nextInt();
-        pc.remover(pc.obter(cpf));
-        menu();
+        if (pc.getAll().size() == 0) {
+            System.out.println("\nNão possuimos nenhum cliente na base de dados para excluir!\n");
+            menu();
+        } else {
+            System.out.print("\nDigite o CPF da pessoa para remove-lá: ");
+            System.out.print("\n");
+
+            int cpf = getScanner().nextInt();
+            pc.remover(pc.obter(cpf));
+            menu();
+        }
+
     }
 
     public void alterar_pessoa() {
 
         PessoaController pc = new PessoaController();
 
-        System.out.print("\nDigite o CPF da pessoa para alterar: ");
+        if (pc.getAll().size() == 0) {
+            System.out.println("\nNão possuimos nenhum cliente na base de dados para listar!\n");
+            menu();
+        } else {
+
+            System.out.print("\nDigite o CPF da pessoa para alterar: ");
+            int cpf = getScanner().nextInt();
+
+            Pessoa p = pc.obter(cpf);
+
+            System.out.println("\nAlterando Informações da Pessoa: \n");
+            System.out.println("Nome: " + p.getNome());
+            System.out.println("CPF: " + p.getCpf());
+            System.out.println("RG: " + p.getCpf());
+            System.out.println("Idade: " + p.getIdade() + "\n");
+
+            System.out.println("Digite as novas informações: \n");
+
+            System.out.print("Nome: ");
+            p.setNome(getScanner().nextLine());
+            System.out.print("Idade: ");
+            p.setIdade(getScanner().nextInt());
+
+            pc.atualizar(p);
+            menu();
+        }
+    }
+
+    public void realizar_venda() {
+
+        PessoaController pc = new PessoaController();
+        CarroController cc = new CarroController();
+
+        if (pc.getAll().size() == 0) {
+            System.out.println("\nNão possuimos nenhum carro na base de dados para realizar a venda!\n");
+            menu();
+        } else if (cc.getAll().size() == 0) {
+            System.out.println("\nNão possuimos nenhum cliente na base de dados para realizar a venda!\n");
+            menu();
+        }
+
+        System.out.print("\nDigite o CPF do comprador: ");
         int cpf = getScanner().nextInt();
+        System.out.print("Digite o número do chassi do carro: ");
+        int chassi = getScanner().nextInt();
+
 
         Pessoa p = pc.obter(cpf);
+        Carro c = cc.obter(chassi);
 
-        System.out.println("\nAlterando Informações da Pessoa: \n");
-        System.out.println("Nome: " + p.getNome());
-        System.out.println("CPF: " + p.getCpf());
-        System.out.println("RG: " + p.getCpf());
-        System.out.println("Idade: " + p.getIdade() + "\n");
+        Venda v = new Venda(p, c);
 
-        System.out.println("Digite as novas informações: \n");
+        System.out.println("\nResumo da Venda: \n");
+        System.out.println("Comprador: " + p.getCpf() + " - " + p.getNome());
+        System.out.println("Carro: " + c.getNumero_chassi() + " - " + c.getNome());
+        System.out.println("Valor: " + c.getValor());
+        System.out.println("Data da venda: " + v.getData_venda());
+        System.out.print("Finalizar venda? 1-(Sim) 0-(Não): ");
+        int escolha = getScanner().nextInt();
+        System.out.print("\n");
 
-        System.out.print("Nome: ");
-        p.setNome(getScanner().nextLine());
-        System.out.print("Idade: ");
-        p.setIdade(getScanner().nextInt());
+        if (escolha == 1) {
+            VendaController vc = new VendaController();
+            vc.criar(v);
+            menu();
+        } else {
+            System.out.print("\n");
+            menu();
+        }
+    }
 
-        pc.atualizar(p);
+    public void mostrar_vendas() {
+
+        VendaController vc = new VendaController();
+
+        System.out.print("\n");
+
+        for (Venda v : vc.getAll()) {
+            System.out.println("Comprador: " + v.getP().getNome());
+            System.out.println("Carro: " + v.getC().getNumero_chassi() + " - " + v.getC().getNome());
+            System.out.println("Valor: " + v.getC().getValor());
+            System.out.println("Data: " + v.getData_venda() + "\n");
+        }
+
         menu();
     }
 
+    public void listar_carro_pessoa() {
+        System.out.print("\nDigite o CPF da pessoa para listar os carros: ");
+        int cpf = getScanner().nextInt();
 
+        System.out.print("\n");
+
+        PessoaController pc = new PessoaController();
+
+        for (Venda v : pc.mostrar_meus_carros(cpf)) {
+            System.out.println("Carro: " + v.getC().getNumero_chassi() + " - " + v.getC().getNome());
+        }
+
+        System.out.print("\n");
+
+        menu();
+    }
+
+    public void mostrar_carro_ano() {
+
+        System.out.print("\nDigite o ano minimo para listar os carros: ");
+        int ano = getScanner().nextInt();
+        System.out.print("\n");
+
+        CarroController cc = new CarroController();
+
+        for (Carro c : cc.getCarroNovo(ano)) {
+            System.out.println("Numero do Chassi: " + c.getNumero_chassi());
+            System.out.println("Nome: " + c.getNome());
+            System.out.println("Cor: " + c.getCor());
+            System.out.println("Ano: " + c.getAno());
+            System.out.println("Potência (CV): " + c.getPotencia_cv());
+            System.out.println("Valor do carro: " + c.getValor() + "\n");
+        }
+
+        menu();
+
+
+    }
 
 }
 

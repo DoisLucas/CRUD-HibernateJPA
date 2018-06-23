@@ -1,7 +1,10 @@
 import javax.persistence.*;
 
 @Entity
+
 @Table(name = "tab_pessoa")
+
+
 public class Pessoa {
 
     @Id

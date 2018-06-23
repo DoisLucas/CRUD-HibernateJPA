@@ -16,9 +16,9 @@ public class CarroController {
         em.getTransaction().begin();
         em.persist(Carro);
         em.getTransaction().commit();
+        em.close();
         return Carro;
     }
-
 
     public Carro obter(int id) {
         em.getTransaction().begin();
@@ -42,22 +42,18 @@ public class CarroController {
         em.getTransaction().commit();
     }
 
-    public List<Carro> getAll(){
+    public List<Carro> getAll() {
         List<Carro> lista = em
                 .createQuery("SELECT c FROM Carro c")
                 .getResultList();
         return lista;
     }
 
-    public List<Carro> getCarroNovo(){
+    public List<Carro> getCarroNovo(int ano) {
         List<Carro> lista = em
-                .createQuery("SELECT c FROM Carro c WHERE c.ano >= 2000")
+                .createNamedQuery("Carro.maiorIgualAno").setParameter("param_ano", ano)
                 .getResultList();
         return lista;
-    }
-
-    public void close() {
-        emf.close();
     }
 
 }
