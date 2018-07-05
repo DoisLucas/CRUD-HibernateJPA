@@ -2,20 +2,22 @@ import javax.persistence.*;
 
 @Entity
 @Table(
-        name = "tab_venda",
-        uniqueConstraints = {@UniqueConstraint(columnNames = {"c_numero_chassi"})}
+        name = "tab_venda"
 )
 public class Venda {
 
     @Id
     @GeneratedValue
     private int id;
-    @OneToOne
-    @JoinColumn(foreignKey= @ForeignKey(name="p_cpf"))
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="pessoa_id_fk", nullable=false)
     private Pessoa p;
-    @OneToOne
-    @JoinColumn(foreignKey= @ForeignKey(name="c_numero_chassi"))
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="carro_id_fk", nullable=false, unique = true)
     private Carro c;
+
     private String data_venda;
 
     public Venda(Pessoa p, Carro c) {

@@ -1,4 +1,5 @@
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 
@@ -16,6 +17,8 @@ public class Pessoa {
     private int idade;
     @Column(name = "nome", nullable = false)
     private String nome;
+    @OneToMany(mappedBy = "p", fetch = FetchType.LAZY)
+    private List<Venda> vendas_pessoas;
 
     public Pessoa() {
     }
@@ -25,6 +28,14 @@ public class Pessoa {
         this.rg = rg;
         this.idade = idade;
         this.nome = nome;
+    }
+
+    public List<Venda> getVendas_pessoas() {
+        return vendas_pessoas;
+    }
+
+    public void setVendas_pessoas(List<Venda> vendas_pessoas) {
+        this.vendas_pessoas = vendas_pessoas;
     }
 
     public int getCpf() {

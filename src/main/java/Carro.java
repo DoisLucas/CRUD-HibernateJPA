@@ -22,6 +22,9 @@ public class Carro {
     @Column(name = "valor", nullable = false)
     private double valor;
 
+    @OneToOne(mappedBy = "c", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
+    private Venda v;
+
     public Carro() {
     }
 

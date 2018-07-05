@@ -15,7 +15,14 @@ public class VendaController {
     public Venda criar(Venda Venda) {
         em.getTransaction().begin();
         em.persist(Venda);
-        em.getTransaction().commit();
+
+        try {
+            em.getTransaction().commit();
+        }catch (Exception e){
+            System.out.println("Não é possivel realizar essa venda\n");
+            em.getTransaction().rollback();
+        }
+
         return Venda;
     }
 
@@ -44,7 +51,7 @@ public class VendaController {
 
     public List<Venda> getAll(){
         List<Venda> lista = em
-                .createQuery("SELECT v FROM Venda as v")
+                .createQuery("FROM Venda")
                 .getResultList();
         return lista;
     }

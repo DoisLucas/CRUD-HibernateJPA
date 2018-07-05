@@ -169,6 +169,9 @@ public class Main {
 
             System.out.print("Valor do carro: ");
             c.setValor(getScanner().nextDouble());
+
+            System.out.print("\n");
+
             cc.atualizar(c);
             menu();
         }
@@ -223,9 +226,8 @@ public class Main {
             menu();
         } else {
             System.out.print("\nDigite o CPF da pessoa para remove-lá: ");
-            System.out.print("\n");
-
             int cpf = getScanner().nextInt();
+            System.out.print("\n");
             pc.remover(pc.obter(cpf));
             menu();
         }
@@ -258,6 +260,8 @@ public class Main {
             p.setNome(getScanner().nextLine());
             System.out.print("Idade: ");
             p.setIdade(getScanner().nextInt());
+
+            System.out.print("\n");
 
             pc.atualizar(p);
             menu();
@@ -330,8 +334,9 @@ public class Main {
         System.out.print("\n");
 
         PessoaController pc = new PessoaController();
+        Pessoa p = pc.obter(cpf);
 
-        for (Venda v : pc.mostrar_meus_carros(cpf)) {
+        for (Venda v : p.getVendas_pessoas()) {
             System.out.println("Carro: " + v.getC().getNumero_chassi() + " - " + v.getC().getNome());
         }
 
